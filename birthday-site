@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Samiksha ❤️</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="fade">Hello Samiksha 💖</h1>
+    <h2 class="fade delay">Happy Birthday Meri Jaan 🎂</h2>
+
+    <p class="fade delay2">
+        Tum meri life ki sabse beautiful cheez ho...  
+        Tumhare aane se sab kuch change ho gaya ❤️
+    </p>
+
+    <p class="fade delay3">
+        Main tumhare saath apni jeet bhi dekhna chahta hoon  
+        aur har bhi... bas tum mere saath raho 🥺
+    </p>
+
+    <button onclick="showMessage()">Tap Here 💌</button>
+
+    <div id="hiddenMessage">
+        <p>
+            Mujhe aaj bhi yaad hai kaise main tumhe dhund raha tha...  
+            aur aaj tum meri life ho 💕  
+            I love you so much ❤️  
+        </p>
+    </div>
+</div>
+
+<canvas id="hearts"></canvas>
+
+<script src="script.js"></script>
+</body>
+</html>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    text-align: center;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    top: 20%;
+    color: white;
+}
+
+h1, h2, p {
+    opacity: 0;
+}
+
+.fade {
+    animation: fadeIn 2s forwards;
+}
+
+.delay { animation-delay: 1s; }
+.delay2 { animation-delay: 2s; }
+.delay3 { animation-delay: 3s; }
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background: white;
+    color: #ff4b5c;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#hiddenMessage {
+    display: none;
+    margin-top: 20px;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+function showMessage() {
+    document.getElementById("hiddenMessage").style.display = "block";
+}
+
+const canvas = document.getElementById("hearts");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let hearts = [];
+
+for (let i = 0; i < 50; i++) {
+    hearts.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 5 + 2,
+        speed: Math.random() * 1 + 0.5
+    });
+}
+
+function drawHearts() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "pink";
+
+    hearts.forEach(h => {
+        ctx.beginPath();
+        ctx.arc(h.x, h.y, h.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        h.y -= h.speed;
+
+        if (h.y < 0) {
+            h.y = canvas.height;
+        }
+    });
+
+    requestAnimationFrame(drawHearts);
+}
+
+drawHearts();
